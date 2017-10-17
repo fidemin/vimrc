@@ -1,6 +1,12 @@
 set nocompatible        " required
 filetype off            " required
 
+" set for vim-plug
+call plug#begin('~/.vim/plugged')
+" install vim-go
+Plug 'fatih/vim-go'
+call plug#end()
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -86,7 +92,6 @@ au BufNewFile,BufRead *.py
 	\ set tabstop=4 |
 	\ set softtabstop=4 |
 	\ set shiftwidth=4 |
-	\ set textwidth=100 |
 	\ set expandtab |
 	\ set fileformat=unix
 
@@ -110,4 +115,9 @@ if has('gui_running')
 else
     set background=dark
     colorscheme zenburn
+endif
+
+if $VIM_CRONTAB == "true"
+	set nobackup
+	set nowritebackup
 endif
