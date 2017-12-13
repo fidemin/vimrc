@@ -1,10 +1,13 @@
 set nocompatible        " required
 filetype off            " required
 
-" set for vim-plug
+" Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
-" install vim-go
+
+" Plug list
+" Make sure you use single quotes
 Plug 'fatih/vim-go'
+
 call plug#end()
 
 " set the runtime path to include Vundle and initialize
@@ -26,12 +29,16 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
-
-
+Plugin 'pangloss/vim-javascript'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+
+
+" Autostart NERDTree
+" autocmd vimenter * NERDTree
 
 " YouCompleteMe
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -87,18 +94,33 @@ set autoindent
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set exrc
+set secure
+
+au BufNewFile, BufRead *.c
+	\ set tabstop=4
+	\ set softtabstop=4
+	\ set shiftwidth=4
+	\ set noexpandtab
+	\ set colorcolumn=110
+	\ highlight ColorColumn ctermbg=darkgray
+	
 
 au BufNewFile,BufRead *.py
 	\ set tabstop=4 |
 	\ set softtabstop=4 |
 	\ set shiftwidth=4 |
+	\ set textwidth=100 |
 	\ set expandtab |
 	\ set fileformat=unix
 
 au BufNewFile,BufRead *.js,*.html,*.css 
-        \ set tabstop=2 |
-	\ set softtabstop=2 |
-	\ set shiftwidth=2
+	\ set tabstop=4 |
+	\ set softtabstop=4 |
+	\ set shiftwidth=4 |
+	\ set textwidth=100 |
+	\ set expandtab |
+	\ set fileformat=unix
 
 
 " Use the below highlight group when displaying bad whitespace is desired.
@@ -108,6 +130,8 @@ highlight BadWhitespace ctermbg=red guibg=red
 au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
 " Make trailing whitespace be flagged as bad.
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" Read .ejs file as html
+au BufNewFile,BufRead *.ejs set filetype=html
 
 if has('gui_running')
     set background=dark
@@ -115,9 +139,4 @@ if has('gui_running')
 else
     set background=dark
     colorscheme zenburn
-endif
-
-if $VIM_CRONTAB == "true"
-	set nobackup
-	set nowritebackup
 endif
